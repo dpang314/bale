@@ -598,8 +598,10 @@ sparsemat_t * read_matrix_mm_to_dist(char * name) {
     }else{
       tri = calloc(nnz, sizeof(w_edge_t));    
       while(fscanf(fp,"%"PRId64" %"PRId64" %"PRId64"\n", &row, &col, &val) != EOF){
-        tri[pos].row = row - 1;
-        tri[pos].col = col - 1;
+        row--;
+        col--;
+        tri[pos].row = row;
+        tri[pos].col = col;
         tri[pos++].val = val;
         nnz_per_th[row % THREADS]++;
         rowcount[row]++;
